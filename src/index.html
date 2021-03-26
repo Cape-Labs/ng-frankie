@@ -6,8 +6,48 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://assets.frankiefinancial.io/onboarding/latest/ff-onboarding-widget.umd.min.js"></script>
+  <script>
+    function ffSuccess(applicantReference) {
+      alert(applicantReference);
+    }
+
+    var frankieConfigGlobal = 'test';
+
+    function initialiseWidget() {
+      var widgetConfiguration = {
+        frankieBackendUrl: 'reandom-test-url',
+        documentTypes: ['PASSPORT', 'DRIVERS_LICENCE', 'NATIONAL_HEALTH_ID'],
+        idScanVerification: false,
+        checkProfile: 'auto',
+        maxAttemptCount: 5,
+        googleAPIKey: false,
+        acceptedCountries: ['AUS', 'NZL'],
+        requestAddress: true,
+        consentText:
+          "I agree with the terms described in the Consent section of the Company's webpage"
+      };
+      frankieConfigGlobal = JSON.stringify(widgetConfiguration, null, 4);
+      console.log(frankieConfigGlobal);
+
+      const applicantReference = Math.floor(Math.random() * 9999) + "-new-applicant";
+
+      frankieFinancial.initialiseOnboardingWidget({
+        applicantReference: applicantReference, /// the string reference that will be injected into this applicant's data, will be used to prefill data and can be used to request their details aftwerwards, both via Frankie API and Frankie Portal
+        config: frankieConfigGlobal,
+        ffToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im9yZ2FuaXNhdGlvbiI6eyJpZCI6NTksInBhcmVudElkIjpudWxsLCJjdXN0b21lcklkIjoiNTkzMmY2YjctYzM1Yi1hYzFmLWRkY2UtMjQ0OGU2NTU0ZTY5IiwiY3VzdG9tZXJDaGlsZElkIjpudWxsLCJuYW1lIjoiaGVsbG9jYXBlIiwibmlja05hbWUiOiJobGNwIiwiaXNSb290IjpmYWxzZSwidGltZXpvbmUiOiJBdXN0cmFsaWEvTWVsYm91cm5lIn0sImlzTWFjaGluZVRva2VuIjp0cnVlLCJyZWZlcnJlciI6bnVsbCwicGVybWlzc2lvbnMiOlsiZmZwb3J0YWxfYXBwbGljYW50X21pZHZfdXBkYXRlIiwiZmZwb3J0YWxfYXBwbGljYW50X2RldGFpbC5mdW5jdGlvbiIsImZmcG9ydGFsX3RyaWdnZXJfZXh0ZXJuYWxfaWR2Il0sInNlc3Npb25JZCI6ImM5M2RkMTNiLTNlMWUtNDg4Ny04NGI1LWU4NDZlNGU3YTkzNSJ9LCJpYXQiOjE2MTY3NDE1MTgsImV4cCI6MTYxNjc0ODcxOH0.7FBAzfIyv_nkEcsyWBhUC4omSVYmbT7KV8KWj5x9f6w'
+      });
+    }
+  </script>
 </head>
-<body>
-  <app-root></app-root>
+<body responsive onload="initialiseWidget()">
+  <ff-onboarding-widget
+    width="500px"
+    height="900px"
+    ffToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im9yZ2FuaXNhdGlvbiI6eyJpZCI6NTksInBhcmVudElkIjpudWxsLCJjdXN0b21lcklkIjoiNTkzMmY2YjctYzM1Yi1hYzFmLWRkY2UtMjQ0OGU2NTU0ZTY5IiwiY3VzdG9tZXJDaGlsZElkIjpudWxsLCJuYW1lIjoiaGVsbG9jYXBlIiwibmlja05hbWUiOiJobGNwIiwiaXNSb290IjpmYWxzZSwidGltZXpvbmUiOiJBdXN0cmFsaWEvTWVsYm91cm5lIn0sImlzTWFjaGluZVRva2VuIjp0cnVlLCJyZWZlcnJlciI6bnVsbCwicGVybWlzc2lvbnMiOlsiZmZwb3J0YWxfYXBwbGljYW50X21pZHZfdXBkYXRlIiwiZmZwb3J0YWxfYXBwbGljYW50X2RldGFpbC5mdW5jdGlvbiIsImZmcG9ydGFsX3RyaWdnZXJfZXh0ZXJuYWxfaWR2Il0sInNlc3Npb25JZCI6ImM5M2RkMTNiLTNlMWUtNDg4Ny04NGI1LWU4NDZlNGU3YTkzNSJ9LCJpYXQiOjE2MTY3NDE1MTgsImV4cCI6MTYxNjc0ODcxOH0.7FBAzfIyv_nkEcsyWBhUC4omSVYmbT7KV8KWj5x9f6w"
+  >
+  </ff-onboarding-widget>
+
+  <!-- <app-root></app-root> -->
 </body>
 </html>
